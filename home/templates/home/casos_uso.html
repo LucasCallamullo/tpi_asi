@@ -1,0 +1,552 @@
+
+
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #1abc9c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            
+            --cuu-primary: #2c3e50;
+            --cuu-secondary: #3498db;
+            --cuu-accent: #e74c3c;
+            --cuu-success: #27ae60;
+            --cuu-light: #ecf0f1;
+            --cuu-dark: #2c3e50;
+            --cuu-gradient: linear-gradient(135deg, #3498db, #2c3e50);
+            --cuu-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --cuu-radius: 12px;
+        }
+
+    .cu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .cu-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .cu-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .cu-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .cu-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .cu-card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cu-card-number {
+            background-color: white;
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .cu-card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .cu-card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cu-card-description {
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .cu-card-footer {
+            padding: 15px 20px;
+            background-color: var(--light-color);
+            border-top: 1px solid #ddd;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+        
+        .cu-actions {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .cu-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .cu-btn:hover {
+            background-color: #16a085;
+        }
+        
+        .cu-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cu-modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: cu-modal-appear 0.3s ease;
+        }
+        
+        @keyframes cu-modal-appear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .cu-modal-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cu-modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cu-modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .cu-process-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .cu-footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .cu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cu-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+
+    .cuu-process {
+            background: white;
+            border-radius: var(--cuu-radius);
+            padding: 30px;
+            box-shadow: var(--cuu-shadow);
+            margin-bottom: 40px;
+        }
+        
+        .cuu-process-title {
+            font-size: 1.8rem;
+            color: var(--cuu-primary);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .cuu-process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .cuu-process-steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: var(--cuu-secondary);
+            z-index: 1;
+        }
+        
+        .cuu-process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .cuu-step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--cuu-secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .cuu-step-text {
+            font-weight: 500;
+            color: var(--cuu-dark);
+        }
+        
+        .cuu-footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--cuu-gradient);
+            color: white;
+            border-radius: var(--cuu-radius);
+            box-shadow: var(--cuu-shadow);
+        }
+        
+        .cuu-highlight {
+            color: var(--cuu-accent);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .cuu-content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cuu-process-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .cuu-process-steps::before {
+                display: none;
+            }
+            
+            .cuu-header {
+                padding: 30px 15px;
+            }
+            
+            .cuu-logo {
+                font-size: 2.2rem;
+            }
+        }
+
+    </style>
+{% endblock extra_head %}
+
+
+
+
+{% block main_content %}
+
+    <div class="cu-container">
+        <img src="{% static 'img/cu_esenciales.jpg' %}" alt="">
+    </div>
+
+    <div class="cuu-process">
+        <h3 class="cuu-process-title">Proceso Integral de Tutorías</h3>
+        <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+            HelpU cubre <span class="cuu-highlight">todo el proceso de la tutoría</span>: desde la búsqueda del tutor hasta el cobro y la evaluación de la clase.
+        </p>
+        
+        <div class="cuu-process-steps">
+            <div class="cuu-process-step">
+                <div class="cuu-step-number">1</div>
+                <div class="cuu-step-text">Búsqueda del Tutor</div>
+            </div>
+            <div class="cuu-process-step">
+                <div class="cuu-step-number">2</div>
+                <div class="cuu-step-text">Solicitud de Tutoría</div>
+            </div>
+            <div class="cuu-process-step">
+                <div class="cuu-step-number">3</div>
+                <div class="cuu-step-text">Confirmación</div>
+            </div>
+            <div class="cuu-process-step">
+                <div class="cuu-step-number">4</div>
+                <div class="cuu-step-text">Realización</div>
+            </div>
+            <div class="cuu-process-step">
+                <div class="cuu-step-number">5</div>
+                <div class="cuu-step-text">Pago y Evaluación</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="cu-container">
+        <header class="cu-header">
+            <h1>Sistema de Gestión de Tutorías</h1>
+            <p>Casos de Uso Esenciales del Sistema</p>
+        </header>
+        
+        <div class="cu-grid" id="cu-grid">
+            <!-- Los casos de uso se cargarán aquí mediante JavaScript -->
+        </div>
+        
+        <div class="cu-actions">
+            <button class="cu-btn" id="cu-show-process">Ver Proceso de Tutoría</button>
+        </div>
+        
+        <footer class="cu-footer">
+            <p>Sistema de Gestión de Tutorías &copy; 2023</p>
+        </footer>
+    </div>
+    
+    <!-- Modal para mostrar el proceso de tutoría -->
+    <div class="cu-modal" id="cu-process-modal">
+        <div class="cu-modal-content">
+            <div class="cu-modal-header">
+                <h2>Proceso de Solicitud de Tutoría</h2>
+                <button class="cu-modal-close" id="cu-modal-close">&times;</button>
+            </div>
+            <div class="cu-modal-body">
+                <p>El proceso de solicitud de tutoría sigue los siguientes pasos:</p>
+                <ol>
+                    <li>El estudiante consulta los tutores disponibles</li>
+                    <li>Selecciona un tutor y registra una solicitud de tutoría</li>
+                    <li>El sistema notifica al tutor sobre la nueva solicitud</li>
+                    <li>El tutor confirma la solicitud estableciendo precios y condiciones</li>
+                    <li>El sistema notifica al estudiante sobre la confirmación</li>
+                    <li>Se realiza la tutoría según lo acordado</li>
+                    <li>El estudiante califica al tutor después de la tutoría</li>
+                    <li>El sistema registra el cobro de la tutoría</li>
+                </ol>
+                <img src="https://via.placeholder.com/600x300/3498db/ffffff?text=Diagrama+de+Proceso+de+Tutoría" alt="Diagrama del proceso de tutoría" class="cu-process-image">
+                <p>Este proceso garantiza una experiencia fluida tanto para estudiantes como para tutores, facilitando la conexión y el intercambio de conocimiento.</p>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+
+
+
+
+{% block extra_scripts %}
+    <script>
+        // Datos de los casos de uso
+        const useCases = [
+            {
+                id: 1,
+                title: "Consultar Tutores",
+                description: "Obtener un listado de los tutores y la información detallada de un tutor en específico.",
+                category: "Consulta"
+            },
+            {
+                id: 2,
+                title: "Registrar materia a dictar",
+                description: "Registrar materia como habilitada a dictar por parte del tutor, para que el tutor pueda dar tutorías.",
+                category: "Registro"
+            },
+            {
+                id: 3,
+                title: "Registrar solicitud de tutoría",
+                description: "Registrar solicitud de tutoría en base a un tutor seleccionado según la materia elegida y notificar a dicho tutor.",
+                category: "Solicitud"
+            },
+            {
+                id: 4,
+                title: "Verificar constancia",
+                description: "Validar que la constancia sea real y esté vigente.",
+                category: "Validación"
+            },
+            {
+                id: 5,
+                title: "Notificar tutoría confirmada",
+                description: "Enviar al estudiante la confirmación por parte del tutor seleccionado.",
+                category: "Notificación"
+            },
+            {
+                id: 6,
+                title: "Notificar nueva solicitud registrada",
+                description: "Enviar al tutor una alerta como aviso por una nueva solicitud por parte del estudiante.",
+                category: "Notificación"
+            },
+            {
+                id: 7,
+                title: "Registrar calificación a tutor",
+                description: "Registrar calificación una reseña por parte del estudiante al dictado de la tutoría de dicho tutor para medir la experiencia del estudiante con la tutoría.",
+                category: "Evaluación"
+            },
+            {
+                id: 8,
+                title: "Confirmar solicitud de tutorías",
+                description: "Confirmar la tutoría pedida por el estudiante habiendo previamente asentado precios, temas y condiciones por chat.",
+                category: "Confirmación"
+            },
+            {
+                id: 9,
+                title: "Registrar cobro de tutoría",
+                description: "Procesar y registrar el cobro de la tutoría del estudiante que se efectuó.",
+                category: "Financiero"
+            },
+            {
+                id: 10,
+                title: "Consultar solicitud de tutoría",
+                description: "Consultar los datos de la solicitud tales como precios, temas, modalidad y el estado de la solicitud de tutoría para evaluar lo que pide el estudiante.",
+                category: "Consulta"
+            },
+            {
+                id: 11,
+                title: "Registrar finalización de solicitud de tutoría",
+                description: "Gestionar la realización de la solicitud de tutoría por parte del Tutor al finalizarla.",
+                category: "Finalización"
+            },
+            {
+                id: 12,
+                title: "Solicitar autorización de cobro",
+                description: "Validar el éxito de la transacción realizada por algún actor externo bancario mediante su interfaz de cobro.",
+                category: "Financiero"
+            },
+            {
+                id: 13,
+                title: "Registrar cancelación de solicitud de tutoría",
+                description: "Registrar cancelación de las solicitudes en las que no se procede con el curso normal/exitoso de las tutorías y debe ser cancelada.",
+                category: "Cancelación"
+            }
+        ];
+
+        // Función para renderizar los casos de uso
+        function renderUseCases() {
+            const grid = document.getElementById('cu-grid');
+            grid.innerHTML = '';
+            
+            useCases.forEach(useCase => {
+                const card = document.createElement('div');
+                card.className = 'cu-card';
+                
+                card.innerHTML = `
+                    <div class="cu-card-header">
+                        <div class="cu-card-number">${useCase.id}</div>
+                        <div class="cu-card-title">${useCase.title}</div>
+                    </div>
+                    <div class="cu-card-body">
+                        <div class="cu-card-description">${useCase.description}</div>
+                    </div>
+                    <div class="cu-card-footer">
+                        Categoría: ${useCase.category}
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Función para manejar el modal
+        function setupModal() {
+            const modal = document.getElementById('cu-process-modal');
+            const showBtn = document.getElementById('cu-show-process');
+            const closeBtn = document.getElementById('cu-modal-close');
+            
+            showBtn.addEventListener('click', () => {
+                modal.style.display = 'flex';
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            renderUseCases();
+            setupModal();
+        });
+    </script>
+
+{% endblock extra_scripts %}

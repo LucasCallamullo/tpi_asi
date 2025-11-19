@@ -1,0 +1,425 @@
+
+{% extends "home/base.html" %}
+{% load static %}
+
+
+{% block extra_head %}
+    
+<style>
+    :root {
+            --cuu-primary: #2c3e50;
+            --cuu-secondary: #3498db;
+            --cuu-accent: #e74c3c;
+            --cuu-success: #27ae60;
+            --cuu-light: #ecf0f1;
+            --cuu-dark: #2c3e50;
+            --cuu-gradient: linear-gradient(135deg, #3498db, #2c3e50);
+            --cuu-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --cuu-radius: 12px;
+        }
+        
+        .cuu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .cuu-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: var(--cuu-gradient);
+            color: white;
+            border-radius: var(--cuu-radius);
+            box-shadow: var(--cuu-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cuu-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: cuu-float 6s ease-in-out infinite;
+        }
+        
+        @keyframes cuu-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+        
+        .cuu-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .cuu-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cuu-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .cuu-card {
+            background: white;
+            border-radius: var(--cuu-radius);
+            padding: 30px;
+            box-shadow: var(--cuu-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cuu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .cuu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--cuu-secondary);
+        }
+        
+        .cuu-card-objective::before {
+            background: var(--cuu-success);
+        }
+        
+        .cuu-card-scope::before {
+            background: var(--cuu-accent);
+        }
+        
+        .cuu-card-title {
+            font-size: 1.5rem;
+            color: var(--cuu-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cuu-card-title i {
+            font-size: 1.8rem;
+        }
+        
+        .cuu-card-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .cuu-features {
+            background: white;
+            border-radius: var(--cuu-radius);
+            padding: 30px;
+            box-shadow: var(--cuu-shadow);
+            margin-bottom: 40px;
+        }
+        
+        .cuu-features-title {
+            font-size: 1.8rem;
+            color: var(--cuu-primary);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .cuu-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .cuu-feature-item {
+            background: var(--cuu-light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--cuu-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .cuu-feature-item:hover {
+            background: var(--cuu-secondary);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .cuu-feature-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .cuu-process {
+            background: white;
+            border-radius: var(--cuu-radius);
+            padding: 30px;
+            box-shadow: var(--cuu-shadow);
+            margin-bottom: 40px;
+        }
+        
+        .cuu-process-title {
+            font-size: 1.8rem;
+            color: var(--cuu-primary);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .cuu-process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .cuu-process-steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: var(--cuu-secondary);
+            z-index: 1;
+        }
+        
+        .cuu-process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .cuu-step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--cuu-secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .cuu-step-text {
+            font-weight: 500;
+            color: var(--cuu-dark);
+        }
+        
+        .cuu-footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--cuu-gradient);
+            color: white;
+            border-radius: var(--cuu-radius);
+            box-shadow: var(--cuu-shadow);
+        }
+        
+        .cuu-highlight {
+            color: var(--cuu-accent);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .cuu-content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cuu-process-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .cuu-process-steps::before {
+                display: none;
+            }
+            
+            .cuu-header {
+                padding: 30px 15px;
+            }
+            
+            .cuu-logo {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% endblock extra_head %}
+
+
+
+{% block main_content %}
+    
+<div class="cuu-container">
+        <header class="cuu-header">
+            <div class="cuu-logo">HelpU</div>
+            <p class="cuu-subtitle">Sistema de Gestión de Tutorías - UTN FRC</p>
+        </header>
+        
+        <div class="cuu-content-grid">
+            <div class="cuu-card cuu-card-objective">
+                <h2 class="cuu-card-title">
+                    <i class="fas fa-bullseye"></i>
+                    Objetivo del Sistema
+                </h2>
+                <div class="cuu-card-content">
+                    <p>Brindar información para la gestión de tutorías entre estudiantes de la UTN FRC.</p>
+                    <p style="margin-top: 15px; font-style: italic; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                        "Nuestro sistema de información, HelpU, tiene como objetivo brindar soporte para la gestión de tutorías entre estudiantes de la UTN FRC, facilitando el vínculo entre quienes necesitan ayuda académica y los estudiantes avanzados que pueden ofrecer tutorías."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cuu-card cuu-card-scope">
+                <h2 class="cuu-card-title">
+                    <i class="fas fa-arrows-alt-h"></i>
+                    Alcance del Sistema
+                </h2>
+                <div class="cuu-card-content">
+                    <p>El sistema HelpU cubre las siguientes áreas funcionales:</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li>Gestión de usuarios y materias</li>
+                        <li>Búsqueda y solicitud de tutorías</li>
+                        <li>Gestión de clases y pagos</li>
+                        <li>Calificaciones y reseñas de tutores</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cuu-features">
+            <h3 class="cuu-features-title">Funcionalidades Principales</h3>
+            <div class="cuu-features-grid">
+                <div class="cuu-feature-item">
+                    <h4><i class="fas fa-users"></i> Gestión de Usuarios y Materias</h4>
+                    <p>Consultar usuarios, registrar y consultar materias habilitadas para tutorías.</p>
+                </div>
+                <div class="cuu-feature-item">
+                    <h4><i class="fas fa-handshake"></i> Conexión Estudiantes-Tutores</h4>
+                    <p>Consultar tutores disponibles y generar solicitudes de tutoría personalizadas.</p>
+                </div>
+                <div class="cuu-feature-item">
+                    <h4><i class="fas fa-calendar-check"></i> Administración de Clases</h4>
+                    <p>Generar clases, registrar tutorías y gestionar el calendario académico.</p>
+                </div>
+                <div class="cuu-feature-item">
+                    <h4><i class="fas fa-money-bill-wave"></i> Gestión de Pagos</h4>
+                    <p>Generar tickets de pago y consultar el estado de las transacciones.</p>
+                </div>
+                <div class="cuu-feature-item">
+                    <h4><i class="fas fa-star"></i> Calidad del Servicio</h4>
+                    <p>Registrar calificaciones, reseñas y duración de las tutorías realizadas.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cuu-process">
+            <h3 class="cuu-process-title">Proceso Integral de Tutorías</h3>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                HelpU cubre <span class="cuu-highlight">todo el proceso de la tutoría</span>: desde la búsqueda del tutor hasta el cobro y la evaluación de la clase.
+            </p>
+            
+            <div class="cuu-process-steps">
+                <div class="cuu-process-step">
+                    <div class="cuu-step-number">1</div>
+                    <div class="cuu-step-text">Búsqueda del Tutor</div>
+                </div>
+                <div class="cuu-process-step">
+                    <div class="cuu-step-number">2</div>
+                    <div class="cuu-step-text">Solicitud de Tutoría</div>
+                </div>
+                <div class="cuu-process-step">
+                    <div class="cuu-step-number">3</div>
+                    <div class="cuu-step-text">Confirmación</div>
+                </div>
+                <div class="cuu-process-step">
+                    <div class="cuu-step-number">4</div>
+                    <div class="cuu-step-text">Realización</div>
+                </div>
+                <div class="cuu-process-step">
+                    <div class="cuu-step-number">5</div>
+                    <div class="cuu-step-text">Pago y Evaluación</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="cuu-footer">
+            <p>Sistema HelpU - Gestión de Tutorías &copy; 2023 - UTN FRC</p>
+            <p style="margin-top: 10px; opacity: 0.9;">
+                Conectando estudiantes que necesitan ayuda con tutores que pueden brindarla
+            </p>
+        </footer>
+</div>
+
+{% endblock main_content %}
+
+
+
+{% block extra_scripts %}
+
+<script>
+        // Animación para los elementos al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Animar elementos al cargar
+            const animatedElements = document.querySelectorAll('.cuu-card, .cuu-feature-item, .cuu-process-step');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+            
+            // Efecto de escritura para el título
+            const logo = document.querySelector('.cuu-logo');
+            const originalText = logo.textContent;
+            logo.textContent = '';
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < originalText.length) {
+                    logo.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            }
+            
+            setTimeout(typeWriter, 1000);
+        });
+    </script>
+
+
+{% endblock extra_scripts %}
+

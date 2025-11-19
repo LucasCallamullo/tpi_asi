@@ -1,0 +1,70 @@
+
+
+{% load static %}
+
+<div class="d-grid cont-grid-123 gap-2">
+
+    {# Primera columna: Logo + Texto de la compañía #} 
+    <div class="d-flex-col gap-2 w-100">
+        
+        <a class="w-100 h-150" href="{% url 'Home' %}">
+            <img src="{% static 'ico/logo.jpeg' %}" alt="Logo {{store.name}}" class="img-cover"
+                loading="lazy" width="100" height="100">
+        </a>
+
+        <h2 class="text-justify"> {{ store.name }} </h2>
+
+        <p class="ms-1 text-justify">
+            ¡Tu ayuda universitaria en Córdoba!
+        </p>
+        <p class="ms-1 text-justify">
+            Nuetras misión y objetivo es brindar información 
+            para la gestión de tutorías entre estudiantes de la UTN FRC.
+        </p>
+        <p class="ms-1 text-justify">
+            Entedemos la complicada situación de muchos estudiantes al comenzar su vida facultativo
+            y pretendemos poder ser la ayuda que buscaban, ofreciendo la posibilidad a alumnos avanzados
+            de dar tutorías a un menor precio que academias, a veces innaccesible para el bolsillo común de
+            los estudiantes. <b>si te hablo a vos ACADEMA PROFE LUCAS</b>.
+        </p>
+    </div>
+
+    {# Segunda columna #} 
+    <div class="d-flex-col gap-2 w-100">
+        <h2>Fundadores de Help U</h2>
+        <div>
+            <p>Callamullo Lucas</p>
+            <p>Cornejo Facundo</p>
+            <p>Miller Ignacio</p>
+            <p>Oyarzabal Bautista</p>
+            <p>Paez Nahuel Agustin</p>
+            <p>Trejo Nahuel</p>
+        </div>
+    </div>
+
+    {# Tercera columna #} 
+    <div class="d-flex-col gap-2 w-100">
+
+        <h2>Seguinos!</h2>
+
+        {# Icon Container  #} 
+        <div class="d-flex ms-1 gap-3 icons-footer">
+            <a href="{{store.tt_url}}" class="hover-up" target="_blank">
+                <i class="ri-tiktok-fill font-xxl"></i>
+            </a>
+            <a href="{{store.fb_url}}" class="hover-up" target="_blank">
+                <i class="ri-facebook-box-fill font-xxl"></i>
+            </a>
+            <a href="{{store.ig_url}}" class="hover-up" target="_blank">
+                <i class="ri-instagram-line font-xxl"></i>
+            </a>
+            <a href="{{store.google_url}}" class="hover-up" target="_blank">
+                <i class="ri-google-fill font-xxl"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="border-top-prim w-100 grid-col-all d-flex justify-center bolder font-md p-2 mt-1">
+        © 2024 Ecommerce Generic. All rights reserved.
+    </div>
+</div>

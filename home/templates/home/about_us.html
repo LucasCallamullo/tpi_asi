@@ -1,0 +1,582 @@
+
+
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+
+<style>
+/* Estilos para la sección About Hero */
+.about-hero {
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    height: calc(100vh - 180px);
+}
+
+.about-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-title {
+    font-size: 42px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.about-subtitle {
+    font-size: 20px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.about-btn {
+    display: inline-block;
+    background: white;
+    color: #4e54c8;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.about-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para secciones generales */
+.about-section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.about-section-title {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.about-section-desc {
+    font-size: 18px;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Estilos para la sección Misión */
+.about-mission {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.about-mission-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.about-mission-text {
+    flex: 1;
+}
+
+.about-mission-text h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about-mission-text p {
+    margin-bottom: 20px;
+    color: #555;
+    line-height: 1.7;
+}
+
+.about-mission-image {
+    flex: 1;
+}
+
+.about-mission-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.about-stats {
+    display: flex;
+    margin-top: 30px;
+    gap: 30px;
+}
+
+.about-stat {
+    text-align: center;
+}
+
+.about-stat-number {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    color: #4e54c8;
+    margin-bottom: 5px;
+}
+
+.about-stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Estilos para la sección Equipo */
+.about-team {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.about-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.about-team-member {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.about-team-member:hover {
+    transform: translateY(-10px);
+}
+
+.about-member-image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.about-member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.about-team-member:hover .about-member-image img {
+    transform: scale(1.1);
+}
+
+.about-member-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.about-member-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.about-member-info p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.about-member-role {
+    display: inline-block;
+    background: #e9ecef;
+    color: #4e54c8;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Estilos para la sección Características */
+.about-features {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.about-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.about-feature-card {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.about-feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.about-feature-icon {
+    font-size: 40px;
+    color: #4e54c8;
+    margin-bottom: 20px;
+}
+
+.about-feature-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.about-feature-card p {
+    color: #666;
+}
+
+/* Estilos para la sección Proceso */
+.about-process {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.about-process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.about-process-step {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.about-step-number {
+    width: 50px;
+    height: 50px;
+    background: #4e54c8;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 auto 20px;
+}
+
+.about-process-step h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.about-process-step p {
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-mission-content {
+        flex-direction: column;
+    }
+    
+    .about-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .about-title {
+        font-size: 32px;
+    }
+    
+    .about-section-title {
+        font-size: 28px;
+    }
+}
+
+.mt-negativo {
+    margin-top: -20px;
+}
+.px-10{
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.p-about-top {
+    padding-top: 32px;
+}
+
+@media (max-width: 768px) {
+    .px-10{
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+}
+</style>
+{% endblock extra_head %}
+
+
+{% block top_banner_image %}
+
+<div class="mt-negativo">
+
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero-content">
+            <h2 class="about-title">Conectando estudiantes con tutores de confianza</h2>
+            <p class="about-subtitle">HelpU es una plataforma diseñada por estudiantes para estudiantes, facilitando el acceso a tutorías personalizadas y de calidad en la UTN FRC.</p>
+            <a href="/" class="about-btn">Conoce más</a>
+        </div>
+    </div>
+</section>
+
+<section class="about-mission px-10 p-about-top">
+    <div class="container">
+        <div class="about-section-header">
+            <h2 class="about-section-title">Nuestra Misión</h2>
+            <p class="about-section-desc">Ayudar a los estudiantes universitarios a superar sus desafíos académicos</p>
+        </div>
+        <div class="about-mission-content">
+            <div class="about-mission-text">
+                <h3>Bridando soluciones educativas accesibles</h3>
+                <p>Como estudiantes de Ingeniería en Sistemas de la UTN FRC, identificamos las dificultades que enfrentan nuestros compañeros para acceder a tutorías de calidad. HelpU nace para resolver esta problemática conectando a estudiantes que necesitan ayuda con tutores verificados.</p>
+                <p>Nuestra plataforma elimina las barreras tradicionales de las clases particulares: altos costos, disponibilidad limitada y falta de información sobre la calidad del servicio.</p>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <span class="about-stat-number">100%</span>
+                        <span class="about-stat-label">Tutores Verificados</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-stat-number">24/7</span>
+                        <span class="about-stat-label">Disponibilidad</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-stat-number">50+</span>
+                        <span class="about-stat-label">Materias Disponibles</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-mission-image">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Estudiantes colaborando" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-team px-10">
+    <div class="container">
+        <div class="about-section-header">
+            <h2 class="about-section-title">Nuestro Equipo</h2>
+            <p class="about-section-desc">Estudiantes de Ingeniería en Sistemas comprometidos con la educación</p>
+        </div>
+        <div class="about-team-grid">
+            <div class="about-team-member">
+                <div class="about-member-image">
+                    <img src="https://i.pinimg.com/736x/ae/c9/22/aec922cb2ecc33853322b5f6be8cca75.jpg" alt="Lucas Callamullo" />
+                </div>
+                <div class="about-member-info">
+                    <h3>Lucas Callamullo</h3>
+                    <span class="about-member-role">Estudiante de Ing en Sistemas</span>
+                </div>
+            </div>
+            <div class="about-team-member">
+                <div class="about-member-image">
+                    <img src="https://i.pinimg.com/736x/ae/c9/22/aec922cb2ecc33853322b5f6be8cca75.jpg" alt="Facundo Cornejo" />
+                </div>
+                <div class="about-member-info">
+                    <h3>Facundo Cornejo</h3>
+                    <span class="about-member-role">Estudiante de Ing en Sistemas</span>
+                </div>
+            </div>
+            <div class="about-team-member">
+                <div class="about-member-image">
+                    <img src="https://i.pinimg.com/736x/ae/c9/22/aec922cb2ecc33853322b5f6be8cca75.jpg" alt="Ignacio Miller" />
+                </div>
+                <div class="about-member-info">
+                    <h3>Ignacio Miller</h3>
+                    <span class="about-member-role">Estudiante de Ing en Sistemas</span>
+                </div>
+            </div>
+            <div class="about-team-member">
+                <div class="about-member-image">
+                    <img src="https://i.pinimg.com/736x/ae/c9/22/aec922cb2ecc33853322b5f6be8cca75.jpg" alt="Bautista Oyarzabal" />
+                </div>
+                <div class="about-member-info">
+                    <h3>Bautista Oyarzabal</h3>
+                    <span class="about-member-role">Estudiante de Ing en Sistemas</span>
+                </div>
+            </div>
+            <div class="about-team-member">
+                <div class="about-member-image">
+                    <img src="https://i.pinimg.com/736x/ae/c9/22/aec922cb2ecc33853322b5f6be8cca75.jpg" alt="Nahuel Paez" />
+                </div>
+                <div class="about-member-info">
+                    <h3>Nahuel Paez</h3>
+                    <span class="about-member-role">Estudiante de Ing en Sistemas</span>
+                </div>
+            </div>
+            <div class="about-team-member">
+                <div class="about-member-image">
+                    <img src="https://i.pinimg.com/736x/ae/c9/22/aec922cb2ecc33853322b5f6be8cca75.jpg" alt="Nahuel Trejo" />
+                </div>
+                <div class="about-member-info">
+                    <h3>Nahuel Trejo</h3>
+                    <span class="about-member-role">Estudiante de Ing en Sistemas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-features px-10">
+    <div class="container">
+        <div class="about-section-header">
+            <h2 class="about-section-title">¿Por qué elegir HelpU?</h2>
+            <p class="about-section-desc">Ventajas de nuestra plataforma educativa</p>
+        </div>
+        <div class="about-features-grid">
+            <div class="about-feature-card">
+                <div class="about-feature-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h3>Tutores Verificados</h3>
+                <p>Todos nuestros tutores son estudiantes avanzados con constancia de aprobación de las materias que dictan.</p>
+            </div>
+            <div class="about-feature-card">
+                <div class="about-feature-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Precios Accesibles</h3>
+                <p>Tarifas justas establecidas por los tutores, sin intermediarios que incrementen los costos.</p>
+            </div>
+            <div class="about-feature-card">
+                <div class="about-feature-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h3>Modalidad Flexible</h3>
+                <p>Clases virtuales o presenciales según tu preferencia y disponibilidad.</p>
+            </div>
+            <div class="about-feature-card">
+                <div class="about-feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Sistema de Calificaciones</h3>
+                <p>Evalúa a tus tutores después de cada clase para mantener la calidad del servicio.</p>
+            </div>
+            <div class="about-feature-card">
+                <div class="about-feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Chat Integrado</h3>
+                <p>Comunícate directamente con los tutores para coordinar horarios y temas a tratar.</p>
+            </div>
+            <div class="about-feature-card">
+                <div class="about-feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Pagos Seguros</h3>
+                <p>Sistema de pagos cifrado que protege tu información financiera.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-process px-10">
+    <div class="container">
+        <div class="about-section-header">
+            <h2 class="about-section-title">Nuestro Proceso de Desarrollo</h2>
+            <p class="about-section-desc">Cómo creamos HelpU paso a paso</p>
+        </div>
+        <div class="about-process-steps">
+            <div class="about-process-step">
+                <div class="about-step-number">1</div>
+                <h3>Investigación y Análisis</h3>
+                <p>Realizamos cuestionarios y entrevistas para identificar las necesidades reales de los estudiantes.</p>
+            </div>
+            <div class="about-process-step">
+                <div class="about-step-number">2</div>
+                <h3>Diseño de Procesos</h3>
+                <p>Modelamos los procesos clave utilizando BPMN para optimizar la experiencia del usuario.</p>
+            </div>
+            <div class="about-process-step">
+                <div class="about-step-number">3</div>
+                <h3>Definición de Requerimientos</h3>
+                <p>Especificamos funcionalidades y características técnicas del sistema.</p>
+            </div>
+            <div class="about-process-step">
+                <div class="about-step-number">4</div>
+                <h3>Prototipado y Pruebas</h3>
+                <p>Desarrollamos prototipos de interfaz y realizamos pruebas de usabilidad.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+{% endblock top_banner_image %}
+
+{% block extra_scripts %}
+    
+
+
+<script>
+// JavaScript para animaciones simples
+document.addEventListener('DOMContentLoaded', function() {
+    // Animación para las tarjetas de características
+    const featureCards = document.querySelectorAll('.about-feature-card');
+    featureCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // Animación para los miembros del equipo
+    const teamMembers = document.querySelectorAll('.about-team-member');
+    teamMembers.forEach(member => {
+        member.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+        });
+        
+        member.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // Efecto de aparición al hacer scroll
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Aplicar a las secciones
+    const sections = document.querySelectorAll('.about-mission, .about-team, .about-features, .about-process');
+    sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(section);
+    });
+});
+</script>
+
+{% endblock extra_scripts %}

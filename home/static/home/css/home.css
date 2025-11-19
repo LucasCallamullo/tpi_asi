@@ -1,0 +1,10 @@
+
+
+.cont-home {
+    height: min-content;
+}
+
+.intro-text {
+    display: block;         /* para que respete el párrafo */
+    text-indent: 32px;       /* sangría del primer renglón */
+}

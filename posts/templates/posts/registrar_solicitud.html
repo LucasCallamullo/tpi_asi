@@ -1,0 +1,108 @@
+
+
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'posts/css/search_tutor.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+
+    <!-- Update multiple images -->
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+
+{% endblock extra_head %}
+
+
+
+
+{% block main_content %}
+
+<div class="d-flex-col gap-5 h-min">
+
+    {# FORMULARIO REGISTRAR SOLICITUD DE Tutoría #}
+    <form class="bg-primary border-hover d-grid cont-grid-123 gap-2"
+    id="form-solicitud">
+        <h1 class="bold-main grid-col-all">Registrar Solicitud de Tutoría</h1>
+
+        <div class="d-flex-col-row justify-center align-center gap-2 mb-2 grid-col-all">
+            <img src="https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg" alt=""
+            class="" style="height: 100px; width: 100px; border-radius: 50%">
+
+            <div class="d-flex-col justify-center align-center text-center gap-1">
+                <h2>{{tutor_user.first_name}} {{tutor_user.last_name}}</h2>
+                <h4>TUTOR</h4>
+            </div>
+        </div>
+
+        <label for="" class="bolder d-flex-col gap-1 text-start">
+            Precio Hora Clase:
+            <span class="d-flex gap-1" style="height: 20px;">
+                <b class=" bold-green">$ </b> 
+                            {{ materia.precio|floatformat:0 }}
+            </span>
+        </label>
+
+        
+        <label class="bolder d-flex-col gap-1 text-start">
+            Modalidad:
+            <select name="">
+                <option value="0">{{materia.get_modalidad_display}}</option>
+            </select>
+        </label>
+
+        <label class="bolder d-flex-col gap-1 text-start">
+            <!-- 
+            <span>Materia: <b class=" bold-red">(*)</b></span> -->
+            <span>Materia: </span>
+
+            <select class="text-truncate" name="subject">
+                <option value="0">{{materia.materia.name}}</option>
+            </select>
+            {% comment %}
+            {# Viejo #}
+                <select class="text-truncate" name="subject">
+                    <option value="0">Seleccione una materia</option>
+                    {% for subject in subjects %}
+                        <option class="text-truncate" value="{{subject.id}}">
+                            {{subject.name}}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endcomment %}
+        </label>
+
+        <label class="d-flex-col gap-1 grid-col-all bolder" for="">
+            <b class="text-break">Temas de apoyo / consulta:</b>
+            <textarea class="h-100" name="tarea" id="tarea"></textarea>
+        </label>
+
+        <div class="grid-col-all d-grid cont-grid-2 gap-2">
+            <a href="/"
+            type="button" class="btn btn-close w-min px-2 btn-36 bolder justify-self-end">
+                Cancelar
+            </a>
+            <button type="submit" class="btn btn-main w-min px-2 btn-36 bolder">
+                Confirmar
+            </button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock main_content %}
+
+
+
+
+
+{% block extra_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+     <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js"></script> 
+
+    <!-- Scripts accept multiple files images from mobile   -->
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script> 
+
+    <script src="{% static 'posts/js/search_tutor.js' %}"></script>
+
+{% endblock extra_scripts %}

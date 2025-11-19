@@ -1,0 +1,168 @@
+
+
+#form-search-tutor,
+#form-solicitud,
+.form-search-tutor {
+    width: 80%;
+    margin-left: 10%;
+    padding: 16px 32px;
+    height: min-content;
+}
+
+/* Contenedor general */
+.ts-wrapper {
+     /*  width: 300px;      ancho del select */
+    font-size: 1rem;
+}
+
+/* Input y elementos seleccionados */
+.ts-control {
+    height: 40px;
+}
+
+/* Opciones del dropdown */
+.ts-dropdown {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+
+/* brands filters stuff */
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    position: relative;
+}
+
+input[type="radio"]:checked::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    background-color: #333;
+    border-radius: 50%;
+}
+
+/* price filters stuff */
+.slider-track {
+    position: absolute;
+    height: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    border-radius: 0.25rem;
+    z-index: 1;
+}
+
+input[type="range"] {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    border-radius: 0.25rem;
+    pointer-events: none; /* Desactivamos eventos para superponer ambos */
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--bg-primary);
+}
+
+/* TRACK */
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background: var(--text-primary);
+    border-radius: 0.25rem;
+}
+
+input[type="range"]::-moz-range-track {
+    height: 8px;
+    background: var(--text-primary);
+    border-radius: 0.25rem;
+} 
+
+/* THUMB (la bolita) */
+input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+    appearance: none; /* */
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--white-color);
+    border: 6px solid var(--main-color);
+    margin-top: -6px; /* Alinear con el track */
+
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: background 0.3s;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  background: var(--white-color);
+  border: 6px solid var(--main-color);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  transition: background 0.3s;
+}
+
+
+
+
+
+
+.image-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80px;
+}
+
+
+
+/* Contenedor: flexbox alineado a la izquierda */
+.custom-checkbox {
+    display: flex;
+    gap: 0.5rem; /* espacio entre checkbox y texto */
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Quita estilos por defecto */
+.checkbox-input {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #555;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Efecto al marcar */
+.checkbox-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Check interno */
+.checkbox-input:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: -2px;
+    left: 2px;
+}

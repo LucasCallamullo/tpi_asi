@@ -1,0 +1,315 @@
+
+
+
+
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+    
+<style>
+.materias-container {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.materias-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.materias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.materia-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.materia-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.materia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 0.75rem;
+}
+
+.materia-nombre {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.materia-modalidad {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.materia-modalidad.virtual {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+}
+
+.materia-modalidad.presencial {
+    background: #f3e5f5;
+    color: #7b1fa2;
+    border: 1px solid #e1bee7;
+}
+
+.materia-modalidad.hibrido {
+    background: #e8f5e8;
+    color: #388e3c;
+    border: 1px solid #c8e6c9;
+}
+
+.materia-info {
+    flex: 1;
+    margin-bottom: 1rem;
+}
+
+.materia-tutor {
+    margin-bottom: 1rem;
+}
+
+.tutor-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.tutor-nombre {
+    color: #333;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+.materia-detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.materia-dato {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dato-label {
+    font-weight: 500;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.dato-valor {
+    color: #333;
+    font-weight: 600;
+}
+
+.materia-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #f8f9fa;
+}
+
+.estado-verificado {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.estado-pendiente {
+    color: #ffc107;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-contactar {
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.btn-contactar:hover {
+    background: linear-gradient(135deg, #3a3fb8, #7a7ff1);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .materias-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .materia-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .materia-nombre {
+        margin-right: 0;
+    }
+    
+    .materia-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+    
+    .btn-contactar {
+        width: 100%;
+    }
+}
+</style>
+{% endblock extra_head %}
+
+
+
+
+
+
+
+
+
+    
+{% block main_content %}
+    
+
+<div class="materias-container">
+    <h2 class="materias-title">Materias Disponibles con Tutores</h2>
+    
+    <div class="materias-grid">
+        {% for materia_tutor in materias %}
+        <div class="materia-card">
+            <div class="materia-header">
+                <h3 class="materia-nombre">{{ materia_tutor.materia.name }}</h3>
+                <span class="materia-modalidad {{ materia_tutor.modalidad }}">
+                    {{ materia_tutor.get_modalidad_display }}
+                </span>
+            </div>
+            <div class="materia-info">
+                <div class="materia-tutor">
+                    <span class="tutor-label">Tutor:</span>
+                    <span class="tutor-nombre">
+                        {{ materia_tutor.tutor.user.first_name }} {{ materia_tutor.tutor.user.last_name }}
+                    </span>
+                </div>
+                <div class="materia-detalles">
+                    <div class="materia-dato">
+                        <span class="dato-label">Año promoción:</span>
+                        <span class="dato-valor">{{ materia_tutor.año_promocion }}</span>
+                    </div>
+
+                    <div class="materia-dato">
+                        <span class="dato-label">Precio Hora Clase:</span>
+                        <span class="dato-valor">
+                            <b class=" bold-green">$ </b> 
+                            {{ materia_tutor.precio|floatformat:0 }}
+                        </span>
+                    </div>
+
+                    <div class="materia-dato">
+                        <span class="dato-label">Contacto:</span>
+                        <span class="dato-valor">
+                            {% if materia_tutor.tutor.user.email %}
+                                {{ materia_tutor.tutor.user.email }}
+                            {% elif materia_tutor.tutor.user.cellphone %}
+                                {{ materia_tutor.tutor.user.cellphone }}
+                            {% else %}
+                                Sin contacto
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="materia-footer">
+                <span class="{% if materia_tutor.verificado %}estado-verificado{% else %}estado-pendiente{% endif %}">
+                    {% if materia_tutor.verificado %}✓ Verificado{% else %}⏳ Pendiente{% endif %}
+                </span>
+
+                <a href="{% url 'registrar' materia_tutor.tutor.id materia_tutor.id %}" 
+                class="btn-contactar" data-tutor-id="{{ materia_tutor.tutor.id }}">
+                        Contactar Tutor
+                    </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="materias-empty">
+            <p>No hay materias disponibles con tutores en este momento.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock main_content %}
+
+
+
+{% block extra_scripts %}
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Función para contactar tutores
+    const contactButtons = document.querySelectorAll('.btn-contactar');
+    
+    /* contactButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tutorId = this.getAttribute('data-tutor-id');
+            // Aquí puedes implementar la lógica para contactar al tutor
+            alert(`Contactando al tutor ID: ${tutorId}`);
+            // Podrías abrir un modal, redirigir a un chat, etc.
+        });
+    }); */
+    
+    // Animación de entrada para las tarjetas
+    const materiaCards = document.querySelectorAll('.materia-card');
+    
+    materiaCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100 * index);
+    });
+});
+</script>
+{% endblock extra_scripts %}
