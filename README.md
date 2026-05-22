@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="es-AR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>README - Help_U - TPI Análisis de Sistemas</title>
-</head>
-<body>
-
-<h1>Help_U 🙌<small>TPI · Análisis de Sistemas</small></h1>
+<h1>Help_U <small>TPI · Análisis de Sistemas</small></h1>
 
 <p><strong> Facultad · Trabajo práctico integrador · MVP funcional</strong></p>
 
@@ -121,6 +112,3 @@ python manage.py runserver
 
 <p><strong>README generado en HTML semántico para conversión a Markdown.</strong><br />
 🧉 Trabajo práctico integrador · Análisis de Sistemas · Código educativo.</p>
-
-</body>
-</html>
